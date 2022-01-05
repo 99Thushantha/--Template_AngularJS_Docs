@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>App</title>
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
+
+    <!-- SheetJS js-xlsx library -->
+    <script src="shim.js"></script>
+    <script src="xlsx.full.min.js"></script>
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link href='https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="assets/style.css" media="all">
+    <script src="templateCtrl.js"></script>
+
+</head>
+<body ng-controller="templateCtrl">
+    <div ui-view>
+
+    </div>
+
+    <!-- create data table-->
+    <table id="sjs-table1">
+      <tr><th>Name</th><th>Index</th></tr>
+      <tr ng-repeat="row in dataObj1">
+        <td>{{row.Name}}</td>
+        <td>{{row.Index}}</td>
+      </tr>
+    </table>
+    <table id="sjs-table2">
+      <tr><th>Name</th><th>Index</th></tr>
+      <tr ng-repeat="row in dataObj2">
+        <td>{{row.Name}}</td>
+        <td>{{row.Index}}</td>
+      </tr>
+    </table>
+    <table id="sjs-table3">
+      <tr><th>Name</th><th>Index</th></tr>
+      <tr ng-repeat="row in dataObj3">
+        <td>{{row.Name}}</td>
+        <td>{{row.Index}}</td>
+      </tr>
+    </table>
+    <table id="sjs-table4">
+      <tr><th>Name</th><th>Index</th></tr>
+      <tr ng-repeat="row in dataObj4">
+        <td>{{row.Name}}</td>
+        <td>{{row.Index}}</td>
+      </tr>
+    </table>
+    <table id="sjs-table5">
+      <tr><th>Name</th><th>Index</th></tr>
+      <tr ng-repeat="row in dataObj5">
+        <td>{{row.Name}}</td>
+        <td>{{row.Index}}</td>
+      </tr>
+    </table>
+
+    <button id="exportbtn">Export Table</button>
+
+    <script src="assets/app.js"></script>
+
+    <!--generate csv and export--> 
+    <script type="text/javascript">
+        exportbtn.addEventListener('click', function() {
+
+          //generate sheets
+          var ws1=XLSX.utils.table_to_sheet(document.getElementById('sjs-table1'));
+          var ws2=XLSX.utils.table_to_sheet(document.getElementById('sjs-table2'));
+          var ws3=XLSX.utils.table_to_sheet(document.getElementById('sjs-table3'));
+          var ws4=XLSX.utils.table_to_sheet(document.getElementById('sjs-table4'));
+          var ws5=XLSX.utils.table_to_sheet(document.getElementById('sjs-table5'));
+          //create workbook
+          var wb= XLSX.utils.book_new();
+          //append to workbook sheets
+              XLSX.utils.book_append_sheet(wb, ws1, 'Sheet-1');
+              XLSX.utils.book_append_sheet(wb, ws2, 'Sheet-2');
+              XLSX.utils.book_append_sheet(wb, ws3, 'Sheet-3');
+              XLSX.utils.book_append_sheet(wb, ws4, 'Sheet-4');
+              XLSX.utils.book_append_sheet(wb, ws5, 'Sheet-5');
+              /* save to file */
+              XLSX.writeFile(wb, 'SampleFile.xlsx');
+        });
+
+    </script>
+
+</body>
+</html>
